@@ -1,8 +1,6 @@
-import React from 'react'
-
 function Accounts() {
     return (
-        <div>Accounts</div>
+        <main className="flex h-full flex-col px-24">Accounts</main>
     )
 };
 

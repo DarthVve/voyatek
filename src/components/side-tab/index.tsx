@@ -14,9 +14,9 @@ const SideTab = ({ icon, href, link }: SideTabProps) => {
     const pathname = usePathname();
 
     return (
-        <li className={pathname === `/${href}` ? "flex items-center space-x-2 text-blue-600 bg-blue-100 rounded p-2" : "flex items-center space-x-2 text-gray-400 hover:text-blue-600"}>
+        <li className={pathname === href ? "flex items-center space-x-2 text-blue-600 bg-blue-100 rounded p-2 font-medium cursor-pointer" : "flex items-center space-x-2 text-gray-400 hover:text-blue-600 cursor-pointer"}>
             {icon}
-            <Link href={`/${href}`}>{link}</Link>
+            <Link href={href}>{link}</Link>
         </li>
     )
 }

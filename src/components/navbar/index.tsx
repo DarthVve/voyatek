@@ -26,23 +26,23 @@ const Navbar = () => {
                 </div>
             </div>
             <ul className="flex items-center space-x-8">
-                <li className="flex flex-col items-center justify-center space-y-1" >
+                <li className="flex flex-col items-center justify-center space-y-1 cursor-pointer" >
                     <Image src="/icons/bell.svg" alt="icon" className="h-6 w-6" width={3000} height={3000} />
                     <p className="text-gray-600 text-xs">Notifications</p>
                 </li>
-                <li className="flex flex-col items-center justify-center space-y-1" >
+                <li className="flex flex-col items-center justify-center space-y-1 cursor-pointer" >
                     <Image src="/icons/wallet.svg" alt="icon" className="h-6 w-6" width={3000} height={3000} />
                     <p className="text-gray-600 text-xs">Wallet</p>
                 </li>
-                <li className="flex flex-col items-center justify-center space-y-1" >
+                <li className="flex flex-col items-center justify-center space-y-1 cursor-pointer" >
                     <Image src="/icons/question.svg" alt="icon" className="h-6 w-6" width={3000} height={3000} />
                     <p className="text-gray-600 text-xs">Inquiries</p>
                 </li>
-                <li className="flex flex-col items-center justify-center space-y-1" >
+                <li className="flex flex-col items-center justify-center space-y-1 cursor-pointer" >
                     <Image src="/icons/gear.svg" alt="icon" className="h-6 w-6" width={3000} height={3000} />
                     <p className="text-blue-600 text-xs">Settings</p>
                 </li>
-                <Image src="/images/profile.svg" alt="Profile" className="h-12 w-12 rounded-full" width={3000} height={3000} />
+                <Image src="/images/profile.svg" alt="Profile" className="h-12 w-12 rounded-full cursor-pointer" width={3000} height={3000} />
             </ul>
         </nav>
     )
