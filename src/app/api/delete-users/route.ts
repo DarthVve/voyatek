@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "@/utils/axios";
 
-export async function POST(request: NextRequest) {
+// HTTPS request to delete a user
+export async function DELETE(request: NextRequest) {
     try {
         const response = await axios.delete("/users");
         if (response.status === 200) {

@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
         const response = await axios.post("/users", body);
         if (response.status === 200) {
-            return NextResponse.json(response.data, { status: 200 });
+            return NextResponse.json(response.data, { status: 201 });
         } else {
             console.error(response);
             return NextResponse.json(response.data, { status: response.status });
