@@ -6,6 +6,8 @@ import { UserTable } from "@/components";
 import Image from "next/image";
 
 import { CreateModal } from '@/components';
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [showCreateModal, setShowcreateModal] = useState<boolean>(false);
@@ -13,7 +15,6 @@ export default function Home() {
   const handleCreatemodal = () => {
     setShowcreateModal(!showCreateModal)
   };
-
 
   return (
     <>

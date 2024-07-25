@@ -1,10 +1,47 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 
 interface CreateModalProps {
     closeModal(): void
 }
 
 const CreateModal = ({ closeModal }: CreateModalProps) => {
+    const [email, setEmail] = useState('');
+    const [fullname, setFullname] = useState('');
+    const [role, setRole] = useState('');
+    const [password, setPassword] = useState('');
+    //Ideally I would use formik for better error handling and yup for validation but ther is no time
+
+    const { isLoading, refetch } = useQuery("tutorial", {
+        queryFn: async () => {
+            const response = await fetch("/create-users", {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: email,
+                    fullname: fullname,
+                    role: role,
+                    password: password
+                })
+            })
+
+            const data = await response.json();
+            return data;
+        },
+        enabled: false,
+        onSuccess: ({ data }) => {
+            console.log('user create:', data);
+            toast.success('User created Succesfully!')
+        },
+        onError: (error) => {
+            toast.error("Sorry Cannot Fetch Data");
+            console.error(error)
+        }
+    });
+
     return (
         <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex items-end justify-center min-h-screen px-4 text-center sm:block sm:p-0">
@@ -36,37 +73,37 @@ const CreateModal = ({ closeModal }: CreateModalProps) => {
                         </div>
                     </div>
 
-                    <div className="mt-3 sm:mt-4">
+                    <form className="mt-3 sm:mt-4">
                         <div className="relative mb-6">
                             <label htmlFor="email" className="block text-sm text-gray-700 font-medium">
                                 Email Address
                             </label>
-                            <input type="email" name="email" id="email" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="New User's Email Address" />
+                            <input onChange={(e) => { setEmail(e.target.value) }} value={email} type="email" name="email" id="email" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="New User's Email Address" />
                         </div>
                         <div className="relative mb-6">
                             <label htmlFor="fullname" className="block text-sm text-gray-700 font-medium">
                                 Full Name
                             </label>
-                            <input type="fullname" name="fullname" id="email" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="New User's Full Name" />
+                            <input onChange={(e) => { setFullname(e.target.value) }} value={fullname} type="fullname" name="fullname" id="email" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="New User's Full Name" />
                         </div>
 
-                        <select name="role" id="role" className="mb-6 p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <select onChange={(e) => { setRole(e.target.value) }} value={role} name="role" id="role" className="mb-6 p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             <option>Select Role</option>
-                            <option className="p-4" >Administrator</option>
-                            <option>Sales Manager</option>
-                            <option>Sales Representative</option>
+                            <option value={'Administrator'} className="p-4" >Administrator</option>
+                            <option value={'Sales Manager'}>Sales Manager</option>
+                            <option value={'Sales Representative'}>Sales Representative</option>
                         </select>
 
                         <div className="relative mb-6">
                             <label htmlFor="password" className="block text-sm text-gray-700 font-medium">
                                 Create Password
                             </label>
-                            <input type="password" name="password" id="password" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Create Password for New User" />
+                            <input onChange={(e) => { setPassword(e.target.value) }} value={password} type="password" name="password" id="password" className="p-4 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Create Password for New User" />
                         </div>
-                    </div>
+                    </form>
 
                     <div className="mt-5 sm:mt-6 ">
-                        <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-3 bg-blue-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2">
+                        <button onClick={() => { refetch() }} disabled={isLoading} type="submit" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-3 bg-blue-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2">
                             Add User
                         </button>
                     </div>

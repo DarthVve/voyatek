@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('react-toastify/dist/ReactToastify.css');
+@import url('react-toastify/dist/ReactToastify.min.css');
+
 body {
   background: #F0F2F5;
 }

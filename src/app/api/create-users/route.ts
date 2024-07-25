@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
         // })
 
         const response = await axios.post("/users", body);
+        console.log(response)
         if (response.status === 200) {
             return NextResponse.json(response.data, { status: 201 });
         } else {
